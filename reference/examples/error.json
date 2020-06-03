@@ -1,0 +1,8 @@
+{
+  "summary": "An Error",
+  "description": "What an error response would look like",
+  "value": {
+    "code": "ER001",
+    "message": "Something went wrong - it was probably your fault"
+  }
+}

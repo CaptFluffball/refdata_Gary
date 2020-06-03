@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
     "title": "ref data",
     "version": "1.0",
@@ -10,8 +10,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
-      "description": "local host"
+      "url": "https://m88nr8vm13.execute-api.eu-west-1.amazonaws.com/somestage",
+      "description": "URL given by Gary - pattern??"
     }
   ],
   "tags": [
@@ -27,7 +27,7 @@
           "location data"
         ],
         "summary": "Retrieves airports",
-        "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country te airport is based in",
+        "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country the airport is based in",
         "operationId": "GetAirports",
         "parameters": [
           {
@@ -58,7 +58,34 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "An error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_error.json"
+                },
+                "examples": {
+                  "ER001": {
+                    "$ref": "/examples/error.json"
+                  }
+                }
+              }
+            }
           }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
         }
       }
     }

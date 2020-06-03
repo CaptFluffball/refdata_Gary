@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "description": "The error code",
+      "type": "string"
+    },
+    "message": {
+      "description": "A useful message to say what went wrong",
+      "type": "string"
+    }
+  }
+}
