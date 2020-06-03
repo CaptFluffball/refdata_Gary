@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Refdata-1 is soooper highly cool",
+    "description": "This is our soooper shiny new refdata service",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://m88nr8vm13.execute-api.eu-west-1.amazonaws.com/somestage"
+    }
+  ],
+  "paths": {
+    "/airports": {
+      "get": {
+        "operationId": "retrieveAllAirports",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MODEL9fe3a1"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MODEL9fe3a1": {
+        "type": "object",
+        "properties": {
+          "countOfAirports": {
+            "type": "number",
+            "description": "The number of airports that have been returned"
+          },
+          "airports": {
+            "type": "array",
+            "description": "The airports",
+            "items": {
+              "required": [
+                "code"
+              ],
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "The IATA code for the airport"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the airport - for display purposes"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
