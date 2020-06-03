@@ -1,0 +1,13 @@
+{
+  "summary": "One returned airport",
+  "description": "What a response would look like with <b><u>ONE</b></u> returned airports",
+  "value": {
+    "countOfAirports": 1,
+    "airports": [
+      {
+        "code": "LHR",
+        "name": "Heathrow"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ref data",
+    "version": "1.0",
+    "description": "Will handle ref data stuff",
+    "contact": {
+      "name": "Captain Fluffball"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local host"
+    }
+  ],
+  "tags": [
+    {
+      "name": "location data",
+      "description": "Location stuff will appear under this tag"
+    }
+  ],
+  "paths": {
+    "/ref-cb/v1/airports": {
+      "get": {
+        "tags": [
+          "location data"
+        ],
+        "summary": "Retrieves airports",
+        "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country te airport is based in",
+        "operationId": "GetAirports",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Adding this will limit the response to just airports in the specified country",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_response.json"
+                },
+                "examples": {
+                  "1 returned": {
+                    "$ref": "/examples/one_airport.json"
+                  },
+                  "2 returned": {
+                    "$ref": "/examples/two_airports.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

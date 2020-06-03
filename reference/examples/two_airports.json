@@ -1,0 +1,17 @@
+{
+  "summary": "Two returned airports",
+  "description": "What a response would look like with <b><u>TWO</b></u> returned airports",
+  "value": {
+    "countOfAirports": 2,
+    "airports": [
+      {
+        "code": "LHR",
+        "name": "Heathrow"
+      },
+      {
+        "code": "NCL",
+        "name": "Newcastle"
+      }
+    ]
+  }
+}
