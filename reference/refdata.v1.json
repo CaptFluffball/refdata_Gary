@@ -50,7 +50,7 @@
                 },
                 "examples": {
                   "1 returned": {
-                    "$ref": "/examples/one_airports.json"
+                    "$ref": "/examples/one_airport.json"
                   },
                   "2 returned": {
                     "$ref": "/examples/two_airports.json"
