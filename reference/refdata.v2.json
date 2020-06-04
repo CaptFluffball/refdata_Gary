@@ -166,7 +166,7 @@
           "currency data"
         ],
         "summary": "Retrieves all the currencies",
-        "description": "This operation will retrieve all of the currencies that we know and care about - can be limited by the country the airport is based in",
+        "description": "This operation will retrieve all of the currencies that we know and care about",
         "operationId": "GetCurrencies",
         "responses": {
           "200": {
@@ -179,6 +179,90 @@
                 "examples": {
                   "3 currencies": {
                     "$ref": "/examples/currencies_response.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "An error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_error.json"
+                },
+                "examples": {
+                  "ER001": {
+                    "$ref": "/examples/error.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      },
+      "post": {
+        "tags": [
+          "currency data"
+        ],
+        "summary": "Creates a new currency",
+        "description": "This operation will create a new currency record in the database",
+        "operationId": "PostCurrencies",
+        "requestBody": {
+          "description": "This will contain the new details for the currency record",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "description": "The currency to be created",
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "The ISO code for the currency"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the currency - for display purposes"
+                      }
+                    },
+                    "required": ["code"]
+                  }
+                }
+              },
+              "examples": {
+                "posted currencies": {
+                  "$ref": "/examples/post_currencies_request.json"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/post_currencies_response.json"
+                },
+                "examples": {
+                  "posted currencies": {
+                    "$ref": "/examples/post_currencies_response.json"
                   }
                 }
               }

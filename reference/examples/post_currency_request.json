@@ -1,0 +1,13 @@
+{
+  "summary": "Daves dollars",
+  "description": "The historical creation of a new currency",
+  "value": {
+    "currency": {
+      "code": "DLD",
+      "name": "Dave Dollars",
+      "country": {
+        "code": "GB"
+      }
+    }
+  }
+}

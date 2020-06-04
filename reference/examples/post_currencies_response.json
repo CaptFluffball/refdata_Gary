@@ -1,0 +1,13 @@
+{
+  "summary": "Daves dollars",
+  "description": "What a response would look like after daves dollars have been created",
+  "value": {
+    "currency": {
+      "code": "DLD",
+      "name": "Dave Dollars",
+      "country": {
+        "code": "GB"
+      }
+    }
+  }
+}

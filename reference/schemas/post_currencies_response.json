@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "description": "The currency sent back after a successful creation",
+  "properties": {
+    "currency": {
+      "description": "The currency posted",
+      "$ref": "#/definitions/Currency"
+    }
+  },
+  "definitions": {
+    "Currency": {
+      "description": "A currency record - yes we know a currency may be used by more than one country - it's just simplified for testing",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The ISO code for the currency"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the currency"
+        },
+        "country": {
+          "description": "The country where the currency is used",
+          "$ref": "#/definitions/Country"
+        }
+      },
+      "required": ["code"]
+    },
+    "Country": {
+      "description": "A country",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The ISO code for the country"
+        }
+      },
+      "required": ["code"]
+    }
+  }
+}
