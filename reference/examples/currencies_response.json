@@ -1,0 +1,30 @@
+{
+  "summary": "Currency data",
+  "description": "What a response would look like with three returned currencies",
+  "value": {
+    "countOfCurrencies": 3,
+    "currencies": [
+      {
+        "code": "GBP",
+        "name": "British pounds",
+        "country": {
+          "code": "GB"
+        }
+      },
+      {
+        "code": "USD",
+        "name": "American Dollars",
+        "country": {
+          "code": "US"
+        }
+      },
+      {
+        "code": "EUR",
+        "name": "Euros",
+        "country": {
+          "code": "FR"
+        }
+      }
+    ]
+  }
+}

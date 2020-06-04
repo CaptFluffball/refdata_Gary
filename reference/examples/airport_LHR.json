@@ -1,0 +1,13 @@
+{
+  "summary": "Heathrow",
+  "description": "What a response would look like for LHR",
+  "value": {
+    "airport": {
+      "code": "LHR",
+      "name": "Heathrow",
+      "country": {
+        "code": "GB"
+      }
+    }
+  }
+}

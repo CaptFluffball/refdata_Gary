@@ -25,7 +25,7 @@
     }
   ],
   "paths": {
-    "/ref-cb/v1/airports": {
+    "/ref-cb/v2/airports": {
       "get": {
         "tags": [
           "location data"
@@ -41,7 +41,8 @@
             "required": false,
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "GB"
           }
         ],
         "responses": {
@@ -93,23 +94,24 @@
         }
       }
     },
-    "/ref-cb/v1/airports/{id}": {
+    "/ref-cb/v2/airports/{id}": {
       "parameters": [
         {
           "name": "id",
           "in": "path",
-          "description": "The unique identofier for an airport",
+          "description": "The unique identifier for an airport (we are using IATA code)",
           "required": true,
           "schema": {
             "type": "string"
-          }
+          },
+          "example":"LHR"
         }
       ],
       "get": {
         "tags": [
           "location data"
         ],
-        "summary": "Retrieves airports",
+        "summary": "Retrieves a single airport",
         "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country the airport is based in",
         "operationId": "GetSingleAirport",
         "responses": {
@@ -118,14 +120,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "/schemas/get_airports_response.json"
+                  "$ref": "/schemas/get_single_airport_response.json"
                 },
                 "examples": {
-                  "1 returned": {
-                    "$ref": "/examples/one_airport.json"
-                  },
-                  "2 returned": {
-                    "$ref": "/examples/two_airports.json"
+                  "LHR": {
+                    "$ref": "/examples/airport_LHR.json"
                   }
                 }
               }
@@ -160,7 +159,62 @@
           "type": "aws_proxy"
         }
       }
-    }  },
+    },
+    "/ref-cb/v2/currencies": {
+      "get": {
+        "tags": [
+          "currency data"
+        ],
+        "summary": "Retrieves all the currencies",
+        "description": "This operation will retrieve all of the currencies that we know and care about - can be limited by the country the airport is based in",
+        "operationId": "GetCurrencies",
+        "responses": {
+          "200": {
+            "description": "The successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_currencies_response.json"
+                },
+                "examples": {
+                  "3 currencies": {
+                    "$ref": "/examples/currencies_response.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "An error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_error.json"
+                },
+                "examples": {
+                  "ER001": {
+                    "$ref": "/examples/error.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {}
   }
