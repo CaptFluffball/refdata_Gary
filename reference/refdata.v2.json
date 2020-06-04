@@ -1,0 +1,167 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ref data",
+    "version": "2.0",
+    "description": "Will handle ref data stuff - added to version 1 with loads of extra stuff",
+    "contact": {
+      "name": "Captain Fluffball"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://m88nr8vm13.execute-api.eu-west-1.amazonaws.com/somestage",
+      "description": "URL given by Gary - pattern??"
+    }
+  ],
+  "tags": [
+    {
+      "name": "location data",
+      "description": "Location stuff will appear under this tag"
+    },
+    {
+      "name": "currency data",
+      "description": "Currency stuff will appear under this tag"
+    }
+  ],
+  "paths": {
+    "/ref-cb/v1/airports": {
+      "get": {
+        "tags": [
+          "location data"
+        ],
+        "summary": "Retrieves airports",
+        "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country the airport is based in",
+        "operationId": "GetAirports",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Adding this will limit the response to just airports in the specified country",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_response.json"
+                },
+                "examples": {
+                  "1 returned": {
+                    "$ref": "/examples/one_airport.json"
+                  },
+                  "2 returned": {
+                    "$ref": "/examples/two_airports.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "An error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_error.json"
+                },
+                "examples": {
+                  "ER001": {
+                    "$ref": "/examples/error.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      }
+    },
+    "/ref-cb/v1/airports/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The unique identofier for an airport",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "location data"
+        ],
+        "summary": "Retrieves airports",
+        "description": "This operation will retrieve all of the airports that we know and care about - can be limited by the country the airport is based in",
+        "operationId": "GetSingleAirport",
+        "responses": {
+          "200": {
+            "description": "The successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_response.json"
+                },
+                "examples": {
+                  "1 returned": {
+                    "$ref": "/examples/one_airport.json"
+                  },
+                  "2 returned": {
+                    "$ref": "/examples/two_airports.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "An error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "/schemas/get_airports_error.json"
+                },
+                "examples": {
+                  "ER001": {
+                    "$ref": "/examples/error.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:999603135242:function:refdata-1/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      }
+    }  },
+  "components": {
+    "schemas": {}
+  }
+}
